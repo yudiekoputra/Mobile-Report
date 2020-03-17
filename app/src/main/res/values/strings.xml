@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Mobile Report</string>
+    <string name="input_your_id">Input Your ID</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="by">By</string>
+    <string name="login">LOGIN</string>
+</resources>
