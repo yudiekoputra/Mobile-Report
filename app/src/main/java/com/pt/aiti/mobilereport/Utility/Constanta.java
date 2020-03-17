@@ -12,4 +12,12 @@ public class Constanta {
     public static String KEY_FLAG_LOGIN = "login_flag";
     public static String KEY_USERNAME = "username";
 
+    public static String [] PROJECT = {
+            "-Pilih Jawaban-",
+            "Project 1",
+            "Project 2",
+            "Project 3",
+            "Project 4"
+    };
+
 }

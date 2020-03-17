@@ -32,5 +32,42 @@
         <item name="android:topDark">@color/transparent</item>
     </style>
 
+    <style name="parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textJudul" parent="parent">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textColor">@color/warnaBiru</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="modifiedEditText" parent="parent">
+        <item name="android:textSize">12sp</item>
+        <item name="android:backgroundTint">@color/warnaBiru</item>
+    </style>
+
+    <style name="linearExpandText" parent="parent">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="linearExpandSpinner" parent="parent">
+        <item name="android:layout_height">70dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="viewParent.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_weight">4</item>
+    </style>
+    <style name="viewParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
 </resources>

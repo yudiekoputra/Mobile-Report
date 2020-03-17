@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Teknisi.NewProjectActivity">
+
+    <LinearLayout
+        android:id="@+id/textSelamatDatang"
+        style="@style/parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/textJudul"
+            android:text="Form Pekerjaan"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSelamatDatang"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textTeknisi1"
+                    style="@style/parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/Teknisi1"
+                        style="@style/modifiedEditText"
+                        android:hint="Teknisi 1"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="15sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textTeknisi2"
+                    style="@style/parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/Teknisi2"
+                        style="@style/modifiedEditText"
+                        android:hint="Teknisi 2"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="15sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textTeknisi3"
+                    style="@style/parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/teknisi3"
+                        style="@style/modifiedEditText"
+                        android:hint="Teknisi 3"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="15sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    style="@style/linearExpandSpinner"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/viewParent.TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:textStyle="bold"
+                        android:text="Project" />
+
+                    <Spinner
+                        android:id="@+id/project"
+                        style="@style/parent"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="20dp"/>
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textLokasi"
+                    style="@style/parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lokasi"
+                        style="@style/modifiedEditText"
+                        android:hint="Lokasi"
+                        android:maxLines="2"
+                        android:textSize="15sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textCatatan"
+                    style="@style/parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/catatan"
+                        style="@style/modifiedEditText"
+                        android:maxLines="15"
+                        android:textSize="15sp"
+                        android:hint="Catatan" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                style="@style/linearExpandText"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/warnaBiru"
+                    android:textColor="@color/warnaPutih"
+                    android:layout_marginRight="10dp"
+                    android:text="BACK" />
+                <Button
+                    android:id="@+id/buttonSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/warnaBiru"
+                    android:textColor="@color/warnaPutih"
+                    android:layout_marginLeft="10dp"
+                    android:text="NEXT" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
