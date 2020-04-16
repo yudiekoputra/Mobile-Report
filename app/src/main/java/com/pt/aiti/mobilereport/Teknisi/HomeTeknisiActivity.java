@@ -44,6 +44,7 @@ public class HomeTeknisiActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(context, NewProjectActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -53,6 +54,7 @@ public class HomeTeknisiActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(context, ListProjectActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

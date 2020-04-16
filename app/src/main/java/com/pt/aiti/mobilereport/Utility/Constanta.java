@@ -20,4 +20,10 @@ public class Constanta {
             "Project 4"
     };
 
+    public static String [] JABATAN= {
+            "-Pilih Jawaban-",
+            "Admin",
+            "Teknisi"
+    };
+
 }
