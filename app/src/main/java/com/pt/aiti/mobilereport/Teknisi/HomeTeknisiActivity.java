@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pt.aiti.mobilereport.LoginActivity;
 import com.pt.aiti.mobilereport.R;
 import com.pt.aiti.mobilereport.Utility.Constanta;
+import com.pt.aiti.mobilereport.Utility.SessionManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,6 +31,9 @@ public class HomeTeknisiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_teknisi);
+
+        TextView username = findViewById(R.id.username);
+        username.setText(SessionManager.getUsername(context));
 
         imageLogOut = findViewById(R.id.imageLogOut);
         imageLogOut.setOnClickListener(new View.OnClickListener() {

@@ -34,6 +34,26 @@ android:orientation="vertical">
             android:tint="#FFFFFF"
             app:srcCompat="@drawable/ic_exit_to_app_black_24dp" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/warnaBiru"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/warnaPutih"
+            android:textStyle="bold"
+            android:text="Hello, "/>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/warnaPutih"
+            android:textStyle="bold"
+            android:text=""/>
+    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -53,13 +73,14 @@ android:orientation="vertical">
                 android:layout_width="200dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="50dp"
+                android:visibility="gone"
                 android:text="Add Project"/>
             <Button
                 android:id="@+id/listProject"
                 android:layout_width="200dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="50dp"
-                android:text="List Project"/>
+                android:text="Rekap Project"/>
         </LinearLayout>
     </ScrollView>
 

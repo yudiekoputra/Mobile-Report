@@ -59,6 +59,24 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="expandLayout" parent="parent">
+        <item name="android:layout_height">700dp</item>
+        <item name="android:background">@color/warnaPutih</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="viewParent.TitikDua">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="viewParent.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_weight">7</item>
+    </style>
+
     <style name="viewParent.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">20dp</item>

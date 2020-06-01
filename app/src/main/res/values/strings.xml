@@ -5,4 +5,6 @@
     <string name="email">Email</string>
     <string name="by">By</string>
     <string name="login">LOGIN</string>
+    <string name="report_project">Report Project</string>
+    <string name="report_pengerjaan_project">Report Pengerjaan Project</string>
 </resources>

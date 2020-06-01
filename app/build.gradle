@@ -48,4 +48,7 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.12.1'
 
     implementation 'com.github.githubwing:DragPhotoView:1.0.1'
+
+    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+
 }

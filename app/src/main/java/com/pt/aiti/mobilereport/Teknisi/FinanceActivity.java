@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -31,10 +33,22 @@ import com.bumptech.glide.Glide;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.pt.aiti.mobilereport.R;
 import com.pt.aiti.mobilereport.Utility.BitmapHelper;
+import com.pt.aiti.mobilereport.Utility.LoadingClass;
+import com.pt.aiti.mobilereport.Utility.SessionManager;
+import com.pt.aiti.mobilereport.Utility.inputProject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -43,15 +57,18 @@ public class FinanceActivity extends AppCompatActivity {
     Button back, submit, hitungBiaya;
     ImageView camera1, camera2, camera3;
     EditText keperluan1, biaya1, deskripsi1, keperluan2, biaya2, deskripsi2, keperluan3, biaya3, deskripsi3;
-    TextView totalBiaya;
+    TextView totalBiaya, tanggalProject;
     private int REQUEST_CODE_CAMERA1 = 1;
     private int REQUEST_CODE_CAMERA2 = 2;
     private int REQUEST_CODE_CAMERA3 = 3;
+    private StorageReference storageReference;
+    private String storageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance);
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         keperluan1 = findViewById(R.id.keperluan1);
         biaya1 = findViewById(R.id.biaya1);
@@ -63,8 +80,20 @@ public class FinanceActivity extends AppCompatActivity {
         biaya3 = findViewById(R.id.biaya3);
         deskripsi3 = findViewById(R.id.deskripsi3);
         totalBiaya = findViewById(R.id.totalbiaya);
+
+        String tanggalSekarang = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
+        tanggalProject = findViewById(R.id.tanggalProject);
+        tanggalProject.setText(tanggalSekarang);
+
         back = findViewById(R.id.buttonBack);
         submit = findViewById(R.id.buttonSubmit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitProject();
+//                uploadFoto();
+            }
+        });
         hitungBiaya = findViewById(R.id.hitungBiaya);
         hitungBiaya.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +122,68 @@ public class FinanceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setDialogPilihan3();
+            }
+        });
+
+    }
+
+    public void uploadFoto(){
+        Bitmap uri1 =BitmapHelper.getInstance().getBitmap();
+        String image1Value = ("gambarProject1");
+        String image2Value = ("gambarProject2");
+        String image3Value = ("gambarProject3");
+        String image4Value = ("gambarBiaya1");
+        String image5Value = ("gambarBiaya2");
+        String image6Value = ("gambarBiaya3");
+        final StorageReference reference1 = storageReference.child("project/"+image1Value);
+        final StorageReference reference2 = storageReference.child("project/"+image2Value);
+        final StorageReference reference3 = storageReference.child("project/"+image3Value);
+        final StorageReference reference4 = storageReference.child("finance/"+image4Value);
+        final StorageReference reference5 = storageReference.child("finance/"+image5Value);
+        final StorageReference reference6 = storageReference.child("finance/"+image6Value);
+
+//        UploadTask uploadTask = reference1.putStream(uri1());
+    }
+
+    public void submitProject(){
+        final ProgressDialog loading = LoadingClass.loadingAnimationCustom(context);
+        loading.show();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference getReference;
+
+        String keperluan1Value = keperluan1.getText().toString();
+        String keperluan2Value = keperluan2.getText().toString();
+        String keperluan3Value = keperluan3.getText().toString();
+        String biaya1Value = biaya1.getText().toString();
+        String biaya2Value = biaya2.getText().toString();
+        String biaya3Value = biaya3.getText().toString();
+        String deskripsi1Value = deskripsi1.getText().toString();
+        String deskripsi2Value = deskripsi2.getText().toString();
+        String deskripsi3Value = deskripsi3.getText().toString();
+        String totalBiayaValue = totalBiaya.getText().toString();
+        String teknisi1Value = SessionManager.getTeknisi1(context);
+        String teknisi2Value = SessionManager.getTeknisi2(context);
+        String teknisi3Value = SessionManager.getTeknisi3(context);
+        String namaProjectValue = SessionManager.getNamaProject(context);
+        String lokasiValue = SessionManager.getLokasi(context);
+        String catatanValue = SessionManager.getCatatan(context);
+        String tanggalProjectValue = tanggalProject.getText().toString();
+//        storageUrl
+
+        getReference = database.getReference();
+
+        getReference.child("inputProject").push()
+                .setValue(new inputProject(keperluan1Value, keperluan2Value, keperluan3Value, biaya1Value, biaya2Value, biaya3Value,
+                        deskripsi1Value, deskripsi2Value, deskripsi3Value, totalBiayaValue, teknisi1Value, teknisi2Value, teknisi3Value,
+                        namaProjectValue, lokasiValue, catatanValue, tanggalProjectValue)).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(context, "Data Tersimpan", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context, HomeTeknisiActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -323,5 +414,12 @@ public class FinanceActivity extends AppCompatActivity {
         }else {
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(context, HomeTeknisiActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

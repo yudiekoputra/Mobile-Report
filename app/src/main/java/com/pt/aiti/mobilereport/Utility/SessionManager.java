@@ -26,6 +26,25 @@ public class SessionManager {
         editor.commit();
     }
 
+    public static void saveNewProject(Context context, String teknisi1, String teknisi2, String teknisi3,
+                                      String project, String lokasi, String catatan){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(String.valueOf(Constanta.TEKNISI1), teknisi1);
+        editor.putString(String.valueOf(Constanta.TEKNISI2), teknisi2);
+        editor.putString(String.valueOf(Constanta.TEKNISI3), teknisi3);
+        editor.putString(String.valueOf(Constanta.NAMA_PROJECT), project);
+        editor.putString(String.valueOf(Constanta.LOKASI), lokasi);
+        editor.putString(String.valueOf(Constanta.CATATAB), catatan);
+
+        editor.commit();
+    }
+
+    public static void saveUsername(Context context, String username){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(Constanta.KEY_USERNAME, username);
+        editor.commit();
+    }
+
     //save flag login
     public static void saveLoginFlag(Context context, boolean login){
         SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
@@ -43,6 +62,30 @@ public class SessionManager {
 
     public static String getUsername(Context context){
         return retrieveSharedPreferences(context).getString(Constanta.KEY_USERNAME, "");
+    }
+
+    public static String getTeknisi1(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.TEKNISI1, "");
+    }
+
+    public static String getTeknisi2(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.TEKNISI2, "");
+    }
+
+    public static String getTeknisi3(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.TEKNISI3, "");
+    }
+
+    public static String getNamaProject(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.NAMA_PROJECT, "");
+    }
+
+    public static String getLokasi(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.LOKASI, "");
+    }
+
+    public static String getCatatan(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.CATATAB, "");
     }
 
 }

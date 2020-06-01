@@ -34,16 +34,24 @@ import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pt.aiti.mobilereport.MainActivity;
 import com.pt.aiti.mobilereport.R;
 import com.pt.aiti.mobilereport.Utility.BitmapHelper;
 import com.pt.aiti.mobilereport.Utility.Constanta;
+import com.pt.aiti.mobilereport.Utility.SessionManager;
+import com.pt.aiti.mobilereport.Utility.namaProject;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 import com.wingsofts.dragphotoview.DragPhotoView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,6 +67,9 @@ public class NewProjectActivity extends AppCompatActivity {
     private int REQUEST_CODE_GALERY1 = 1;
     private int REQUEST_CODE_GALERY2 = 2;
     private int REQUEST_CODE_GALERY3 = 3;
+
+    private DatabaseReference reference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,13 +118,27 @@ public class NewProjectActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, FinanceActivity.class);
-                startActivity(intent);
+                saveNewProjet();
             }
         });
 
         project = findViewById(R.id.project);
         setSpinnerData();
+    }
+
+    private void saveNewProjet (){
+        String teknisi1Value = teknisi1.getText().toString();
+        String teknisi2Value = teknisi2.getText().toString();
+        String teknisi3Value = teknisi3.getText().toString();
+        String projectValue = project.getSelectedItem().toString();
+        String lokasiValue = lokasi.getText().toString();
+        String catatanValue = catatan.getText().toString();
+
+        SessionManager.saveNewProject(context, teknisi1Value, teknisi2Value, teknisi3Value,
+                projectValue, lokasiValue, catatanValue);
+
+        Intent intent = new Intent(context, FinanceActivity.class);
+        startActivity(intent);
     }
 
     private void setDialogPilihan(){
@@ -429,7 +454,8 @@ public class NewProjectActivity extends AppCompatActivity {
     }
 
     private void setSpinnerData() {
-        ArrayAdapter<String> adapterProject = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, Constanta.PROJECT);
+
+        ArrayAdapter<String> adapterProject = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, Constanta.PROJECT);
         adapterProject.setDropDownViewResource(android.R.layout.simple_spinner_item);
         project.setAdapter(adapterProject);
     }
@@ -459,4 +485,6 @@ public class NewProjectActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 }

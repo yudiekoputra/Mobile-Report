@@ -24,4 +24,13 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/datalist"
+        android:layout_width="match_parent"
+        android:layout_height="646dp"
+        android:layout_alignTop="@+id/textSelamatDatang"
+        android:layout_marginTop="69dp"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/layout_list_item" />
+
 </RelativeLayout>

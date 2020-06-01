@@ -26,6 +26,7 @@ import com.pt.aiti.mobilereport.Admin.HomeAdminActivity;
 import com.pt.aiti.mobilereport.Teknisi.HomeTeknisiActivity;
 import com.pt.aiti.mobilereport.Utility.Constanta;
 import com.pt.aiti.mobilereport.Utility.LoadingClass;
+import com.pt.aiti.mobilereport.Utility.SessionManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -136,13 +137,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        writeNewAdmin(user.getUid(), username, user.getEmail());
 
         // Go to MainActivity
-        if (username.equalsIgnoreCase("teknisi")){
-            startActivity(new Intent(context, HomeTeknisiActivity.class));
+        if (username.equalsIgnoreCase("admin")){
+            SessionManager.saveUsername(context, username);
+            startActivity(new Intent(context, HomeAdminActivity.class));
             finish();
 
         }else{
-            startActivity(new Intent(context, HomeAdminActivity.class));
+            SessionManager.saveUsername(context, username);
+            startActivity(new Intent(context, HomeTeknisiActivity.class));
             finish();
+
         }
     }
     private String usernameFromEmail(String email) {
