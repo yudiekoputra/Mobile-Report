@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,9 +137,39 @@ public class NewProjectActivity extends AppCompatActivity {
 
         SessionManager.saveNewProject(context, teknisi1Value, teknisi2Value, teknisi3Value,
                 projectValue, lokasiValue, catatanValue);
-
+        convertImageString1();
+        convertImageString2();
+        convertImageString3();
         Intent intent = new Intent(context, FinanceActivity.class);
         startActivity(intent);
+    }
+
+    public void convertImageString1(){
+        Bitmap bitmap = BitmapHelper.getInstance().getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imagebytes = baos.toByteArray();
+        String image1 = Base64.encodeToString(imagebytes, Base64.DEFAULT);
+        SessionManager.saveImage1(context, image1);
+    }
+    public void convertImageString2(){
+        Bitmap bitmap2 = BitmapHelper.getInstance().getBitmap2();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bitmap2.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imageBytes2 = baos.toByteArray();
+        String image2 = Base64.encodeToString(imageBytes2, Base64.DEFAULT);
+        SessionManager.saveImage2(context, image2);
+    }
+    public void convertImageString3(){
+        Bitmap bitmap3 = BitmapHelper.getInstance().getBitmap3();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bitmap3.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imageBytes3 = baos.toByteArray();
+        String image3 = Base64.encodeToString(imageBytes3, Base64.DEFAULT);
+        SessionManager.saveImage3(context, image3);
     }
 
     private void setDialogPilihan(){
@@ -151,16 +182,6 @@ public class NewProjectActivity extends AppCompatActivity {
                 }
             }
         });
-//        myAlertDialog.setNegativeButton("Galery", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-////                if (camera1 != null){
-////                    camera1 = null;
-////                if(checkPermissionGalery()){
-////                    ambilImagedariGalery();
-////                }
-//            }
-//        });
         myAlertDialog.setNeutralButton("Lihat Gambar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -343,26 +364,9 @@ public class NewProjectActivity extends AppCompatActivity {
 
                     Glide.with(context).load(bitmap).into(camera1);
                     BitmapHelper.getInstance().setBitmap(bitmap);
+
                 }
             }else if (requestCode == REQUEST_CODE_GALERY1) {
-//                List<Image> images= ImagePicker.getImages(data);
-//                for(int n=0; n<images.size(); n++) {
-//                    if (images.get(n) != null) {
-//                        BitmapFactory.Options options = new BitmapFactory.Options();
-//                        Bitmap bitmap = BitmapFactory.decodeFile(images.get(n).getPath());
-//
-//                        Glide.with(context).load(bitmap)
-//                                .into(camera1);
-//                        BitmapHelper.getInstance().setBitmap(bitmap);
-//                    }
-//                }
-//                    if (image != null) {
-//                        BitmapFactory.Options options = new BitmapFactory.Options();
-//                        Bitmap bitmap = BitmapFactory.decodeFile(image.getPath(), options);
-//
-//                        Glide.with(context).load(bitmap).into(camera1);
-//                        BitmapHelper.getInstance().setBitmap(bitmap);
-//                }
                 if(data != null){
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), data.getData());
@@ -390,6 +394,7 @@ public class NewProjectActivity extends AppCompatActivity {
 
                     Glide.with(context).load(bitmap2).into(camera2);
                     BitmapHelper.getInstance().setBitmap2(bitmap2);
+
                 }
             }
             if (requestCode == REQUEST_CODE_CAMERA3) {

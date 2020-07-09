@@ -8,9 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +26,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pt.aiti.mobilereport.Admin.HomeAdminActivity;
+import com.pt.aiti.mobilereport.Direktur.HomeDirekturActivity;
 import com.pt.aiti.mobilereport.Teknisi.HomeTeknisiActivity;
+import com.pt.aiti.mobilereport.Teknisi.ListProjectActivity;
 import com.pt.aiti.mobilereport.Utility.Constanta;
 import com.pt.aiti.mobilereport.Utility.LoadingClass;
 import com.pt.aiti.mobilereport.Utility.SessionManager;
@@ -40,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText email, password;
     Button buttonLogin;
     private int counter_back = 1;
+    private CheckBox ShowPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +59,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
-
-//        mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "signInWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//
-//                        // ...
-//                    }
-//                });
+        ShowPass = findViewById(R.id.showPass);
+        ShowPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ShowPass.isChecked()){
+                    //Saat Checkbox dalam keadaan Checked, maka password akan di tampilkan
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else {
+                    //Jika tidak, maka password akan di sembuyikan
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
     }
 
     @Override
@@ -137,11 +135,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        writeNewAdmin(user.getUid(), username, user.getEmail());
 
         // Go to MainActivity
-        if (username.equalsIgnoreCase("admin")){
+        if (username.equalsIgnoreCase("admin")) {
             SessionManager.saveUsername(context, username);
             startActivity(new Intent(context, HomeAdminActivity.class));
             finish();
-
+        }else if (username.equalsIgnoreCase("direktur")){
+            SessionManager.saveUsername(context, username);
+            startActivity(new Intent(context, HomeDirekturActivity.class));
+            finish();
         }else{
             SessionManager.saveUsername(context, username);
             startActivity(new Intent(context, HomeTeknisiActivity.class));

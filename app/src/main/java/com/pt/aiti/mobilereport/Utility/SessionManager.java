@@ -45,6 +45,37 @@ public class SessionManager {
         editor.commit();
     }
 
+    public static void saveImage1(Context context, String image1){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(Constanta.IMAGE1, image1);
+        editor.commit();
+    }
+    public static void saveImage2(Context context, String image2){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(Constanta.IMAGE2, image2);
+        editor.commit();
+    }
+    public static void saveImage3(Context context, String image3){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(Constanta.IMAGE3, image3);
+        editor.commit();
+    }
+    public static void saveImage4(Context context, String image4){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(Constanta.IMAGE4, image4);
+        editor.commit();
+    }
+    public static void saveImage5(Context context, String image5){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(Constanta.IMAGE5, image5);
+        editor.commit();
+    }
+    public static void saveImage6(Context context, String image6){
+        SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
+        editor.putString(Constanta.IMAGE6, image6);
+        editor.commit();
+    }
+
     //save flag login
     public static void saveLoginFlag(Context context, boolean login){
         SharedPreferences.Editor editor = retrieveSharedPreferencesEditor(context);
@@ -88,4 +119,27 @@ public class SessionManager {
         return retrieveSharedPreferences(context).getString(Constanta.CATATAB, "");
     }
 
+    public static String getImage1(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.IMAGE1, "");
+    }
+
+    public static String getImage2(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.IMAGE2, "");
+    }
+
+    public static String getImage3(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.IMAGE3, "");
+    }
+
+    public static String getImage4(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.IMAGE4, "");
+    }
+
+    public static String getImage5(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.IMAGE5, "");
+    }
+
+    public static String getImage6(Context context){
+        return retrieveSharedPreferences(context).getString(Constanta.IMAGE6, "");
+    }
 }

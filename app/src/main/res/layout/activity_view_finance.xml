@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Teknisi.ViewFinanceActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp">
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/textJudul"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp"
+        android:text="Report Finance"/>
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:textStyle="bold"
+            android:text="Total Biaya" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:textStyle="bold"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/totalBiaya"
+            style="@style/viewParent.EditText"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:hint="Total Biaya"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="keperluan 1" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/keperluan1"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Keperluan 1"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Biaya 1" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/biaya1"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Biaya 1"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Deskripsi" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/Deskripsi1"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Deskripsi 1"
+            android:inputType="text" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imageBiaya1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_photo_camera"
+            android:padding="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Keperluan 2" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/keperluan2"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Keperluan 2"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Biaya 2" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/biaya2"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Biaya 2"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Deskripsi" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/Deskripsi2"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Deskripsi"
+            android:inputType="text" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imageBiaya2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_photo_camera"
+            android:padding="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Keperluan 3" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/keperluan3"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Keperluan 3"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Biaya 3" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/biaya3"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Biaya 3"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearExpandText"
+        android:layout_height="20dp">
+
+        <TextView
+            style="@style/viewParent.TextView"
+            android:text="Deskripsi" />
+
+        <TextView
+            style="@style/viewParent.TitikDua"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/Deskripsi3"
+            style="@style/viewParent.EditText"
+            android:focusable="false"
+            android:hint="Deskripsi"
+            android:inputType="text" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imageBiaya3"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_photo_camera"
+            android:padding="5dp"/>
+    </LinearLayout>
+    <!--    </com.github.aakira.expandablelayout.ExpandableLinearLayout>-->
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/buttonBalik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/warnaBiru"
+            android:textColor="@color/warnaPutih"
+            android:layout_marginRight="10dp"
+            android:text="BACK" />
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/warnaBiru"
+            android:textColor="@color/warnaPutih"
+            android:layout_marginRight="10dp"
+            android:text="CLOSE" />
+    </LinearLayout>
+</LinearLayout>
+
+</ScrollView>

@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,10 +43,14 @@ import com.google.firebase.storage.UploadTask;
 import com.pt.aiti.mobilereport.R;
 import com.pt.aiti.mobilereport.Utility.BitmapHelper;
 import com.pt.aiti.mobilereport.Utility.LoadingClass;
+import com.pt.aiti.mobilereport.Utility.NumberTextWatcherForThousand;
+import com.pt.aiti.mobilereport.Utility.NumberTextWatcherForThousandTv;
 import com.pt.aiti.mobilereport.Utility.SessionManager;
 import com.pt.aiti.mobilereport.Utility.inputProject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -63,6 +68,7 @@ public class FinanceActivity extends AppCompatActivity {
     private int REQUEST_CODE_CAMERA3 = 3;
     private StorageReference storageReference;
     private String storageUrl;
+    Double aDouble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +87,10 @@ public class FinanceActivity extends AppCompatActivity {
         deskripsi3 = findViewById(R.id.deskripsi3);
         totalBiaya = findViewById(R.id.totalbiaya);
 
+        biaya1.addTextChangedListener(new NumberTextWatcherForThousand(biaya1));
+        biaya2.addTextChangedListener(new NumberTextWatcherForThousand(biaya2));
+        biaya3.addTextChangedListener(new NumberTextWatcherForThousand(biaya3));
+
         String tanggalSekarang = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
         tanggalProject = findViewById(R.id.tanggalProject);
         tanggalProject.setText(tanggalSekarang);
@@ -90,8 +100,8 @@ public class FinanceActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitProject();
-//                uploadFoto();
+//                submitProject();
+                uploadFoto();
             }
         });
         hitungBiaya = findViewById(R.id.hitungBiaya);
@@ -127,22 +137,29 @@ public class FinanceActivity extends AppCompatActivity {
 
     }
 
-    public void uploadFoto(){
-        Bitmap uri1 =BitmapHelper.getInstance().getBitmap();
-        String image1Value = ("gambarProject1");
-        String image2Value = ("gambarProject2");
-        String image3Value = ("gambarProject3");
-        String image4Value = ("gambarBiaya1");
-        String image5Value = ("gambarBiaya2");
-        String image6Value = ("gambarBiaya3");
-        final StorageReference reference1 = storageReference.child("project/"+image1Value);
-        final StorageReference reference2 = storageReference.child("project/"+image2Value);
-        final StorageReference reference3 = storageReference.child("project/"+image3Value);
-        final StorageReference reference4 = storageReference.child("finance/"+image4Value);
-        final StorageReference reference5 = storageReference.child("finance/"+image5Value);
-        final StorageReference reference6 = storageReference.child("finance/"+image6Value);
+//    public void uploadFoto(){
+//        Bitmap uri1 =BitmapHelper.getInstance().getBitmap();
+//        String image1Value = ("gambarProject1");
+//        String image2Value = ("gambarProject2");
+//        String image3Value = ("gambarProject3");
+//        String image4Value = ("gambarBiaya1");
+//        String image5Value = ("gambarBiaya2");
+//        String image6Value = ("gambarBiaya3");
+//        final StorageReference reference1 = storageReference.child("project/"+image1Value);
+//        final StorageReference reference2 = storageReference.child("project/"+image2Value);
+//        final StorageReference reference3 = storageReference.child("project/"+image3Value);
+//        final StorageReference reference4 = storageReference.child("finance/"+image4Value);
+//        final StorageReference reference5 = storageReference.child("finance/"+image5Value);
+//        final StorageReference reference6 = storageReference.child("finance/"+image6Value);
+//
+////        UploadTask uploadTask = reference1.putStream(uri1());
+//    }
 
-//        UploadTask uploadTask = reference1.putStream(uri1());
+    public void uploadFoto(){
+        convertImageString4();
+        convertImageString5();
+        convertImageString6();
+        submitProject();
     }
 
     public void submitProject(){
@@ -169,6 +186,12 @@ public class FinanceActivity extends AppCompatActivity {
         String lokasiValue = SessionManager.getLokasi(context);
         String catatanValue = SessionManager.getCatatan(context);
         String tanggalProjectValue = tanggalProject.getText().toString();
+        String image1Value = SessionManager.getImage1(context);
+        String image2Value = SessionManager.getImage2(context);
+        String image3Value = SessionManager.getImage3(context);
+        String image4Value = SessionManager.getImage4(context);
+        String image5Value = SessionManager.getImage5(context);
+        String image6Value = SessionManager.getImage6(context);
 //        storageUrl
 
         getReference = database.getReference();
@@ -176,7 +199,8 @@ public class FinanceActivity extends AppCompatActivity {
         getReference.child("inputProject").push()
                 .setValue(new inputProject(keperluan1Value, keperluan2Value, keperluan3Value, biaya1Value, biaya2Value, biaya3Value,
                         deskripsi1Value, deskripsi2Value, deskripsi3Value, totalBiayaValue, teknisi1Value, teknisi2Value, teknisi3Value,
-                        namaProjectValue, lokasiValue, catatanValue, tanggalProjectValue)).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                        namaProjectValue, lokasiValue, catatanValue, tanggalProjectValue, image1Value, image2Value, image3Value,
+                        image4Value, image5Value, image6Value)).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(context, "Data Tersimpan", Toast.LENGTH_SHORT).show();
@@ -189,10 +213,44 @@ public class FinanceActivity extends AppCompatActivity {
 
     }
 
+    public void convertImageString4(){
+        Bitmap bitmap4 = BitmapHelper.getInstance().getBitmap4();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bitmap4.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imagebytes4 = baos.toByteArray();
+        String image4 = Base64.encodeToString(imagebytes4, Base64.DEFAULT);
+        SessionManager.saveImage4(context, image4);
+    }
+
+    public void convertImageString5(){
+        Bitmap bitmap5 = BitmapHelper.getInstance().getBitmap5();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bitmap5.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imageBytes5 = baos.toByteArray();
+        String image5 = Base64.encodeToString(imageBytes5, Base64.DEFAULT);
+        SessionManager.saveImage5(context, image5);
+    }
+
+    public void convertImageString6(){
+        Bitmap bitmap6 = BitmapHelper.getInstance().getBitmap6();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bitmap6.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imageBytes6 = baos.toByteArray();
+        String image6 = Base64.encodeToString(imageBytes6, Base64.DEFAULT);
+        SessionManager.saveImage6(context, image6);
+    }
+
     public void hitungTotalBiaya(){
-        String biaya1Value = biaya1.getText().toString().trim();
-        String biaya2Value = biaya2.getText().toString().trim();
-        String biaya3Value = biaya3.getText().toString().trim();
+//        String biaya1Value = biaya1.getText().toString().trim();
+//        String biaya2Value = biaya2.getText().toString().trim();
+//        String biaya3Value = biaya3.getText().toString().trim();
+        totalBiaya.addTextChangedListener(new NumberTextWatcherForThousandTv(totalBiaya));
+        String biaya1Value = NumberTextWatcherForThousand.trimCommaOfString(biaya1.getText().toString());
+        String biaya2Value = NumberTextWatcherForThousand.trimCommaOfString(biaya2.getText().toString());
+        String biaya3Value = NumberTextWatcherForThousand.trimCommaOfString(biaya3.getText().toString());
 
         boolean isEmptyFields = false;
 

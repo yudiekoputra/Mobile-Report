@@ -47,15 +47,16 @@ public class Constanta {
     }
 
     public static String [] PROJECT = {
-            "-Pilih Jawaban-",
+            "-Pilih Project-",
             "CCTV",
             "Fiber Optic",
-            "Wifi Braodband",
+            "Wifi Broadband",
             "Installasi Jaringan Internal"
     };
 
     public static String [] JABATAN= {
-            "-Pilih Jawaban-",
+            "-Pilih Jabatan-",
+            "Direktur",
             "Admin",
             "Teknisi"
     };
@@ -67,4 +68,10 @@ public class Constanta {
     public static String NAMA_PROJECT = "project";
     public static String LOKASI = "lokasi";
     public static String CATATAB = "catatan";
+    public static String IMAGE1 = "image1";
+    public static String IMAGE2 = "image2";
+    public static String IMAGE3 = "image3";
+    public static String IMAGE4 = "image4";
+    public static String IMAGE5 = "image5";
+    public static String IMAGE6 = "image6";
 }

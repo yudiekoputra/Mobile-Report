@@ -3,14 +3,19 @@ package com.pt.aiti.mobilereport.Admin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -23,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pt.aiti.mobilereport.MainActivity;
 import com.pt.aiti.mobilereport.R;
+import com.pt.aiti.mobilereport.Teknisi.HomeTeknisiActivity;
 import com.pt.aiti.mobilereport.Utility.AddUser;
 import com.pt.aiti.mobilereport.Utility.Constanta;
 import com.pt.aiti.mobilereport.Utility.LoadingClass;
@@ -33,6 +39,7 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
     EditText namaUser, emailUser, passwordUser;
     Button add, back;
     private FirebaseAuth mAuth;
+    private CheckBox ShowPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,29 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
         add = findViewById(R.id.buttonAdd);
         add.setOnClickListener(this);
         back = findViewById(R.id.buttonBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, HomeAdminActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         jabatanUser = findViewById(R.id.jabatan);
+
+        ShowPass = findViewById(R.id.showPass);
+        ShowPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ShowPass.isChecked()){
+                    //Saat Checkbox dalam keadaan Checked, maka password akan di tampilkan
+                    passwordUser.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else {
+                    //Jika tidak, maka password akan di sembuyikan
+                    passwordUser.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         setSpinnerData();
     }
@@ -114,12 +143,25 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
                                 public void onComplete(@NonNull Task<Void> task) {
                                     loading.dismiss();
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(context, "User berhasil ditambahkan", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(context, HomeAdminActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                                        AlertDialog.Builder option = new AlertDialog.Builder(context);
+                                        option.setMessage("User berhasil ditambahkan, Apakah anda ingin kembali ke Home ?")
+                                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        backKeHome();
+                                                    }
+                                                }).setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                                clearText();
+                                            }
+                                        }).setCancelable(true);
+                                        AlertDialog showOption = option.create();
+                                        showOption.show();
+
                                     } else {
-                                        //display a failure message
+                                        Toast.makeText(context, "Gagal menambahkan user, mohon periksa koneksi internet Anda", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -145,5 +187,18 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
                 registerUser();
                 break;
         }
+    }
+
+    private void clearText(){
+        namaUser.getText().clear();
+        emailUser.getText().clear();
+        passwordUser.getText().clear();
+        jabatanUser.setSelection(0);
+    }
+
+    private void backKeHome(){
+        Intent intent = new Intent(context, HomeAdminActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -37,11 +37,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ListAdapter.ViewHolder holder, final int position) {
             final String namaProject = listSurvey.get(position).getNamaProject();
         final String lokasi = listSurvey.get(position).getLokasi();
-//        final String tanggalProject = listSurvey.get(position).getTanggalProject();
+        final String tanggal = listSurvey.get(position).getTanggalProject();
 
         holder.namaProject.setText(namaProject);
         holder.lokasi.setText(lokasi);
-//        holder.tanggalProject.setText(tanggalProject);
+        holder.tanggalProject.setText(tanggal);
 
         holder.ListItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             super(itemView);
             namaProject = itemView.findViewById(R.id.namaProject);
             lokasi = itemView.findViewById(R.id.lokasi);
-//            tanggalProject = itemView.findViewById(R.id.tanggalProject);
+            tanggalProject = itemView.findViewById(R.id.tanggal);
             ListItem = itemView.findViewById(R.id.list_item);
         }
     }

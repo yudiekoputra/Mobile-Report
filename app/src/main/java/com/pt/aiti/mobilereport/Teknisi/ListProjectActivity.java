@@ -20,12 +20,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pt.aiti.mobilereport.Admin.HomeAdminActivity;
+import com.pt.aiti.mobilereport.Direktur.HomeDirekturActivity;
 import com.pt.aiti.mobilereport.R;
 import com.pt.aiti.mobilereport.Utility.ListAdapter;
 import com.pt.aiti.mobilereport.Utility.SessionManager;
 import com.pt.aiti.mobilereport.Utility.inputProject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ListProjectActivity extends AppCompatActivity {
 
@@ -96,6 +99,10 @@ public class ListProjectActivity extends AppCompatActivity {
         String text = SessionManager.getUsername(context);
         if (text.equalsIgnoreCase("admin")){
             Intent intent = new Intent(context, HomeAdminActivity.class);
+            startActivity(intent);
+            finish();
+        }else if (text.equalsIgnoreCase("direktur")){
+            Intent intent = new Intent(context, HomeDirekturActivity.class);
             startActivity(intent);
             finish();
         }
