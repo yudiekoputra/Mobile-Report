@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +7,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".Teknisi.ViewProjectActivity">
 <LinearLayout
+    android:id="@+id/linearlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -213,6 +214,15 @@ tools:context=".Teknisi.ViewProjectActivity">
             android:layout_marginRight="10dp"
             android:text="Back" />
         <Button
+            android:id="@+id/buttonDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/warnaBiru"
+            android:textColor="@color/warnaPutih"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:text="Download Project" />
+        <Button
             android:id="@+id/buttonNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -223,4 +233,4 @@ tools:context=".Teknisi.ViewProjectActivity">
     </LinearLayout>
 </LinearLayout>
 
-</ScrollView>
+</RelativeLayout>

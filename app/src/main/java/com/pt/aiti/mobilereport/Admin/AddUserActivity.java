@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -36,7 +37,7 @@ import com.pt.aiti.mobilereport.Utility.LoadingClass;
 public class AddUserActivity extends AppCompatActivity implements View.OnClickListener  {
     private Context context = this;
     private Spinner jabatanUser;
-    EditText namaUser, emailUser, passwordUser;
+    EditText namaUser, emailUser, passwordUser, alamat, noHP;
     Button add, back;
     private FirebaseAuth mAuth;
     private CheckBox ShowPass;
@@ -50,6 +51,8 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
         namaUser = findViewById(R.id.namaUser);
         emailUser = findViewById(R.id.emailUser);
         passwordUser = findViewById(R.id.passwordUser);
+        alamat = findViewById(R.id.alamat);
+        noHP = findViewById(R.id.noHP);
         add = findViewById(R.id.buttonAdd);
         add.setOnClickListener(this);
         back = findViewById(R.id.buttonBack);
@@ -85,6 +88,8 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
         final String email = emailUser.getText().toString().trim();
         String password = passwordUser.getText().toString().trim();
         final String jabatanValue = jabatanUser.getSelectedItem().toString();
+        final String alamatValue = alamat.getText().toString().trim();
+        final String noHPValue = noHP.getText().toString().trim();
 
         if (name.isEmpty()) {
             namaUser.setError("Field ini tidak boleh kosong");
@@ -133,7 +138,9 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
                             AddUser user = new AddUser(
                                     name,
                                     email,
-                                    jabatanValue
+                                    jabatanValue,
+                                    alamatValue,
+                                    noHPValue
                             );
 
                             FirebaseDatabase.getInstance().getReference("Users")
@@ -143,6 +150,8 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
                                 public void onComplete(@NonNull Task<Void> task) {
                                     loading.dismiss();
                                     if (task.isSuccessful()) {
+                                        MediaPlayer ring= MediaPlayer.create(context,R.raw.saveinput);
+                                        ring.start();
                                         AlertDialog.Builder option = new AlertDialog.Builder(context);
                                         option.setMessage("User berhasil ditambahkan, Apakah anda ingin kembali ke Home ?")
                                                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {

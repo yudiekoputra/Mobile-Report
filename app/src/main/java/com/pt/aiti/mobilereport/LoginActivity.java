@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -102,7 +103,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         loading.dismiss();
                         if (task.isSuccessful()){
                             onAuthSuccess(task.getResult().getUser());
+                            MediaPlayer ring= MediaPlayer.create(context,R.raw.loginsuccess);
+                            ring.start();
                         }else{
+                            MediaPlayer ring= MediaPlayer.create(context,R.raw.logingagal);
+                            ring.start();
                             Toast.makeText(context, "Email or Password is incorrect",
                                     Toast.LENGTH_SHORT).show();
                         }

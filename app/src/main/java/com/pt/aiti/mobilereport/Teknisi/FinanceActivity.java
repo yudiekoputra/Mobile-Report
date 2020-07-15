@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -203,6 +204,8 @@ public class FinanceActivity extends AppCompatActivity {
                         image4Value, image5Value, image6Value)).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                MediaPlayer ring= MediaPlayer.create(context,R.raw.saveinput);
+                ring.start();
                 Toast.makeText(context, "Data Tersimpan", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(context, HomeTeknisiActivity.class);
